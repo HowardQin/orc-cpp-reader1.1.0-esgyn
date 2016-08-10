@@ -861,6 +861,11 @@ namespace orc {
      * @return upper bound on memory use
      */
     virtual uint64_t getMemoryUse(int stripeIx=-1) = 0;
+	
+    /**
+     *  Get the sum of the lengths of the strings across all string columns
+     */
+    virtual uint64_t getSumStringLengths() const = 0;
   };
 }
 

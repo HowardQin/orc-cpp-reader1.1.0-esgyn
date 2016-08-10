@@ -18,6 +18,7 @@
 
 #include "orc/ColumnPrinter.hh"
 #include "Exceptions.hh"
+#include "orc/HdfsOrcFile.hh"
 
 #include <string>
 #include <memory>
@@ -28,7 +29,7 @@ void printStatistics(const char *filename) {
 
   orc::ReaderOptions opts;
   std::unique_ptr<orc::Reader> reader;
-  reader = orc::createReader(orc::readLocalFile(std::string(filename)), opts);
+  reader = orc::createReader(orc::readHDFSFile(std::string(filename)), opts);
 
   // print out all selected columns statistics.
   std::unique_ptr<orc::Statistics> colStats = reader->getStatistics();

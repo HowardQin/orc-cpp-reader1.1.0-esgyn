@@ -17,6 +17,7 @@
  */
 
 #include "orc/ColumnPrinter.hh"
+#include "orc/HdfsOrcFile.hh"
 
 #include "Exceptions.hh"
 
@@ -33,7 +34,7 @@ int main(int argc, char* argv[]) {
   orc::ReaderOptions opts;
   std::unique_ptr<orc::Reader> reader;
   try{
-    reader = orc::createReader(orc::readLocalFile(std::string(argv[1])), opts);
+    reader = orc::createReader(orc::readHDFSFile(std::string(argv[1])), opts);
   } catch (std::exception& ex) {
     std::cerr << "Caught exception: " << ex.what() << "\n";
     return 1;

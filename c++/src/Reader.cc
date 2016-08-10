@@ -1197,6 +1197,9 @@ namespace orc {
     std::string getSerializedFileTail() const override;
 
     uint64_t getMemoryUse(int stripeIx = -1) override;
+
+    uint64_t getSumStringLengths() const override;
+	
   };
 
   InputStream::~InputStream() {
@@ -2244,4 +2247,18 @@ namespace orc {
       }
     }
   }
+
+    uint64_t ReaderImpl::getSumStringLengths() const
+    {
+        const Type& rootType = getType();
+        uint64_t sum = 0;
+        for(uint64_t i = 0; i < rootType.getSubtypeCount(); i++) {
+                std::unique_ptr<orc::ColumnStatistics> colStats = getColumnStatistics(i);
+		const orc::StringColumnStatistics* strStats = dynamic_cast<const orc::StringColumnStatistics*> (colStats.get());
+		if(strStats)
+                    sum += strStats->getTotalLength();
+        }
+        return sum;
+    }
+
 }// namespace

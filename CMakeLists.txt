@@ -45,26 +45,23 @@ endif(NOT APPLE AND NOT MSVC)
 
 set (PROTOBUF_VERSION "2.6.0")
 set (PROTOBUF_INCLUDE_DIRS
-     "${CMAKE_SOURCE_DIR}/c++/libs/protobuf-${PROTOBUF_VERSION}/src")
-set (PROTOBUF_LIBRARIES protobuf)
-set (PROTOBUF_EXECUTABLE "${CMAKE_BINARY_DIR}/c++/libs/protobuf-${PROTOBUF_VERSION}/protoc")
+     "/usr/include/google/protobuf")
+set (PROTOBUF_LIBRARIES /usr/lib64/libprotobuf.so)
+set (PROTOBUF_EXECUTABLE "/usr/bin/protoc")
 
 set (SNAPPY_VERSION "1.1.2")
 set (SNAPPY_INCLUDE_DIRS
-     "${CMAKE_SOURCE_DIR}/c++/libs/snappy-${SNAPPY_VERSION}")
-set (SNAPPY_LIBRARIES snappy)
+     "/usr/include")
+set (SNAPPY_LIBRARIES /usr/lib64/libsnappy.so)
 
 set (ZLIB_VERSION "1.2.8")
-set (ZLIB_INCLUDE_DIRS
-     "${CMAKE_SOURCE_DIR}/c++/libs/zlib-${ZLIB_VERSION}"
-     "${CMAKE_BINARY_DIR}/c++/libs/zlib-${ZLIB_VERSION}"
-    )
-set (ZLIB_LIBRARIES zlib)
-
+set (ZLIB_INCLUDE_DIRS "/usr/include")
+set (ZLIB_LIBRARIES /usr/lib64/libz.so)
+set (HDFS_LIBRARIES /home/howard/traf-plus/core/sqf/export/lib64d/libhdfs.so)
 #
 # Compiler specific flags
 #
-set(CMAKE_CXX_FLAGS_DEBUG "-O0 -g")
+set(CMAKE_CXX_FLAGS_DEBUG "-O0 -g -fPIC")
 set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "-O3 -g -DNDEBUG")
 set(CMAKE_CXX_FLAGS_RELEASE "-O3 -DNDEBUG")
 if (CMAKE_CXX_COMPILER_ID STREQUAL "Clang")

@@ -25,6 +25,7 @@
 
 #include "orc/OrcFile.hh"
 #include "Adaptor.hh"
+#include "orc/HdfsOrcFile.hh"
 
 void printStripeInformation(std::ostream& out,
                             uint64_t index,
@@ -79,7 +80,7 @@ void printStripeInformation(std::ostream& out,
 
 void printMetadata(std::ostream & out, const char*filename, bool verbose) {
   std::unique_ptr<orc::Reader> reader =
-    orc::createReader(orc::readLocalFile(filename), orc::ReaderOptions());
+    orc::createReader(orc::readHDFSFile(filename), orc::ReaderOptions());
   out << "{ \"name\": \"" << filename << "\",\n";
   uint64_t numberColumns = reader->getType().getMaximumColumnId() + 1;
   out << "  \"type\": \""

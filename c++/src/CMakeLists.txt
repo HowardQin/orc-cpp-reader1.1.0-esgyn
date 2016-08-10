@@ -122,7 +122,7 @@ add_custom_command(OUTPUT orc_proto.pb.h orc_proto.pb.cc
         "${CMAKE_SOURCE_DIR}/proto/orc_proto.proto"
 )
 
-add_library (orc STATIC
+add_library (orc SHARED
   "${CMAKE_CURRENT_BINARY_DIR}/Adaptor.hh"
   orc_proto.pb.h
   wrap/orc-proto-wrapper.cc
@@ -141,6 +141,7 @@ add_library (orc STATIC
   Timezone.cc
   TypeImpl.cc
   Vector.cc
+  HdfsOrcFile.cc
   )
 
 install(TARGETS orc DESTINATION lib)
@@ -149,6 +150,7 @@ target_link_libraries (orc
   ${PROTOBUF_LIBRARIES}
   ${ZLIB_LIBRARIES}
   ${SNAPPY_LIBRARIES}
+  ${HDFS_LIBRARIES}
   )
 
 add_dependencies(orc protoc)

@@ -2256,7 +2256,12 @@ namespace orc {
                 std::unique_ptr<orc::ColumnStatistics> colStats = getColumnStatistics(i);
 		const orc::StringColumnStatistics* strStats = dynamic_cast<const orc::StringColumnStatistics*> (colStats.get());
 		if(strStats)
+                try {
                     sum += strStats->getTotalLength();
+                }
+                catch (ParseError) {
+                     continue;
+                }
         }
         return sum;
     }
